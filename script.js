@@ -1,131 +1,315 @@
-document.documentElement.classList.add("js-ready");
+<!DOCTYPE html>
+<html lang="sq">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Njoftim zyrtar per turnirin tradicional te futbollit te vogel Milaim Tahiri ne Germove, Viti."
+    />
+    <title>Milaim Tahiri | Turneu Tradicional</title>
+    <link rel="preload" href="assets/stadium-bg.png" as="image" />
+    <link rel="preload" href="assets/football.png" as="image" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
 
-const tournamentStart = new Date("2026-07-20T00:00:00+02:00").getTime();
-const countdown = document.querySelector("#countdown");
-const unitEls = {
-  days: countdown?.querySelector('[data-unit="days"]'),
-  hours: countdown?.querySelector('[data-unit="hours"]'),
-  minutes: countdown?.querySelector('[data-unit="minutes"]'),
-  seconds: countdown?.querySelector('[data-unit="seconds"]'),
-};
+    <!-- Favicon -->
+    <link rel="icon" href="assets/football.png" type="image/png" />
 
-function pad(value) {
-  return String(value).padStart(2, "0");
-}
+    <!-- Open Graph / Social sharing preview -->
+    <meta property="og:title" content="Milaim Tahiri | Turneu Tradicional" />
+    <meta
+      property="og:description"
+      content="Njoftim zyrtar per turnirin tradicional te futbollit te vogel Milaim Tahiri ne Germove, Viti."
+    />
+    <meta property="og:image" content="assets/stadium-bg.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="spark-field" id="sparkField" aria-hidden="true"></div>
 
-function setUnit(name, value) {
-  if (unitEls[name]) {
-    unitEls[name].textContent = pad(value);
-  }
-}
+    <header class="topbar" data-topbar>
+      <a class="brand" href="#top" aria-label="Milaim Tahiri">
+        <strong>MT</strong>
+        <span>
+          <b>Milaim Tahiri</b>
+          <small>Turneu tradicional</small>
+        </span>
+      </a>
 
-function updateCountdown() {
-  if (!countdown) return;
+      <nav class="nav-links" aria-label="Navigimi kryesor">
+        <a href="#info">Info</a>
+        <a href="#rregullat">Rregullat</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
 
-  const distance = tournamentStart - Date.now();
+      <div class="top-call" aria-label="Kontaktet">
+        <a href="tel:+38349757906">+383 49 757 906</a>
+        <a href="tel:043545626">043 545 626</a>
+      </div>
+    </header>
 
-  if (distance <= 0) {
-    setUnit("days", 0);
-    setUnit("hours", 0);
-    setUnit("minutes", 0);
-    setUnit("seconds", 0);
-    countdown.setAttribute("aria-label", "Turneu ka filluar");
-    return;
-  }
+    <main id="top">
+      <section class="hero" aria-labelledby="main-title">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-lights" aria-hidden="true"></div>
+        <div class="hero-smoke" aria-hidden="true"></div>
 
-  setUnit("days", Math.floor(distance / 86400000));
-  setUnit("hours", Math.floor((distance / 3600000) % 24));
-  setUnit("minutes", Math.floor((distance / 60000) % 60));
-  setUnit("seconds", Math.floor((distance / 1000) % 60));
-}
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="official-pill reveal">NJOFTIM ZYRTAR</p>
+            <p class="kicker reveal">TURNEU TRADICIONAL</p>
+            <h1 class="hero-title reveal" id="main-title">MILAIM TAHIRI</h1>
+            <p class="script-subtitle reveal">Futboll i vog&euml;l</p>
 
-function setupReveal() {
-  const items = document.querySelectorAll(".reveal");
+            <div class="headline-stack reveal">
+              <p class="slogan">DIT&Euml;T PO AFROHEN!</p>
+              <p class="teaser">DI&Ccedil;KA E MADHE PO VJEN...</p>
+            </div>
+          </div>
 
-  if (!("IntersectionObserver" in window)) {
-    items.forEach((item) => item.classList.add("is-visible"));
-    return;
-  }
+          <div class="hero-stage reveal">
+            <div class="match-badge" aria-label="Luhet pese plus nje">
+              <span>LUHET</span>
+              <strong>5+1</strong>
+            </div>
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.14, rootMargin: "0px 0px -42px 0px" }
-  );
+            <div class="ball-orbit" aria-hidden="true">
+              <img class="football-img" src="assets/football.png" alt="" />
+            </div>
+          </div>
 
-  items.forEach((item, index) => {
-    item.style.transitionDelay = `${Math.min(index * 42, 280)}ms`;
-    observer.observe(item);
-  });
-}
+          <div class="hero-bottom reveal">
+            <div class="location-strip" aria-label="Lokacioni Germove, Viti">
+              <span></span>
+              <p>
+                <small>Lokacioni</small>
+                G&Euml;RMOV&Euml;, VITI
+              </p>
+              <span></span>
+            </div>
 
-function createSparks() {
-  const field = document.querySelector("#sparkField");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            <section class="countdown-panel" aria-labelledby="countdown-title">
+              <div class="countdown-heading">
+                <p id="countdown-title">Fillon turneu</p>
+                <strong>20.07.2026</strong>
+              </div>
 
-  if (!field || reducedMotion) return;
+              <div class="countdown-grid" id="countdown" aria-live="polite">
+                <article>
+                  <strong data-unit="days">00</strong>
+                  <span>Dit&euml;</span>
+                </article>
+                <article>
+                  <strong data-unit="hours">00</strong>
+                  <span>Or&euml;</span>
+                </article>
+                <article>
+                  <strong data-unit="minutes">00</strong>
+                  <span>Min</span>
+                </article>
+                <article>
+                  <strong data-unit="seconds">00</strong>
+                  <span>Sek</span>
+                </article>
+              </div>
+            </section>
 
-  field.replaceChildren();
-  const sparkCount = window.innerWidth < 680 ? 28 : 54;
+            <div class="hero-actions">
+              <a
+                class="btn btn-primary"
+                href="https://www.facebook.com/share/1C9uMsAgs5/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>Regjistro ekipin</span>
+              </a>
+              <a
+                class="btn btn-secondary"
+                href="https://www.facebook.com/share/1C9uMsAgs5/?mibextid=wwXIfr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>Shiko njoftimin n&euml; Facebook</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  for (let i = 0; i < sparkCount; i += 1) {
-    const spark = document.createElement("span");
-    spark.className = "spark";
-    spark.style.setProperty("--x", `${Math.random() * 100}%`);
-    spark.style.setProperty("--y", `${16 + Math.random() * 78}%`);
-    spark.style.setProperty("--w", `${1 + Math.random() * 2.2}px`);
-    spark.style.setProperty("--h", `${7 + Math.random() * 16}px`);
-    spark.style.setProperty("--r", `${-36 + Math.random() * 72}deg`);
-    spark.style.setProperty("--dx", `${-38 + Math.random() * 76}px`);
-    spark.style.setProperty("--dy", `${-100 - Math.random() * 190}px`);
-    spark.style.setProperty("--d", `${4 + Math.random() * 5.6}s`);
-    spark.style.setProperty("--delay", `${-Math.random() * 8}s`);
-    spark.style.setProperty("--o", `${0.34 + Math.random() * 0.5}`);
-    field.appendChild(spark);
-  }
-}
+      <section class="info-section" id="info" aria-labelledby="info-title">
+        <div class="section-heading reveal">
+          <p>Informacione zyrtare</p>
+          <h2 id="info-title">Detajet e turnirit</h2>
+        </div>
 
-function setupTopbar() {
-  const topbar = document.querySelector("[data-topbar]");
-  if (!topbar) return;
+        <div class="info-grid">
+          <article class="info-card prize-card reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 4h8v3a4 4 0 0 1-8 0V4Z" />
+                <path d="M6 5H3v2a4 4 0 0 0 4 4" />
+                <path d="M18 5h3v2a4 4 0 0 1-4 4" />
+                <path d="M12 11v5" />
+                <path d="M8 20h8" />
+                <path d="M10 16h4l1 4H9l1-4Z" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Fondi i shp&euml;rblimeve</p>
+              <h3>1. Vendi: <span>3,000 &euro;</span></h3>
+              <h3>2. Vendi: <span>1,000 &euro;</span></h3>
+            </div>
+          </article>
 
-  const update = () => {
-    topbar.classList.toggle("is-scrolled", window.scrollY > 16);
-  };
+          <article class="info-card reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 11a4 4 0 1 0-8 0" />
+                <path d="M4 20a8 8 0 0 1 16 0" />
+                <path d="M20 9a3 3 0 0 1 2 5" />
+                <path d="M4 9a3 3 0 0 0-2 5" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Pjes&euml;marrja e ekipit</p>
+              <h3 class="giant">50 &euro;</h3>
+              <p>P&euml;r ekip</p>
+            </div>
+          </article>
 
-  update();
-  window.addEventListener("scroll", update, { passive: true });
-}
+          <article class="info-card reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 4h14v16H5V4Z" />
+                <path d="M8 2v4" />
+                <path d="M16 2v4" />
+                <path d="M5 9h14" />
+                <path d="M9 13h2" />
+                <path d="M13 13h2" />
+                <path d="M9 17h2" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Afati i paraqitjes</p>
+              <h3><span>19.07.2026</span></h3>
+              <p>Shortet hidhen po at&euml; dit&euml;</p>
+            </div>
+          </article>
 
-function setupHeroParallax() {
-  const hero = document.querySelector(".hero");
-  const bg = document.querySelector(".hero-bg");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          <article class="info-card wide reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s7-5.1 7-11a7 7 0 0 0-14 0c0 5.9 7 11 7 11Z" />
+                <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Lokacioni i shortit</p>
+              <h3>Shkolla e fshatit G&euml;rmov&euml; &ldquo;Mirali Sejdiu&rdquo;</h3>
+              <p>Ora: <strong>19:00</strong></p>
+            </div>
+          </article>
 
-  if (!hero || !bg || reducedMotion) return;
+          <article class="info-card reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 19 19 5" />
+                <path d="M7 17a4 4 0 0 0 6 0" />
+                <path d="M14 6h6v6" />
+                <path d="M4 20h5" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Fillon turneu</p>
+              <h3><span>20.07.2026</span></h3>
+            </div>
+          </article>
 
-  hero.addEventListener("pointermove", (event) => {
-    const rect = hero.getBoundingClientRect();
-    const offset = ((event.clientX - rect.left) / rect.width - 0.5) * 18;
-    bg.style.setProperty("--mx", `${offset}px`);
-  });
+          <article class="info-card reveal">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 4h8v4a4 4 0 0 1-8 0V4Z" />
+                <path d="M12 12v4" />
+                <path d="M8 20h8" />
+                <path d="M10 16h4l1 4H9l1-4Z" />
+                <path d="m12 6 1 2 2 .2-1.5 1.4.5 2-2-1.1-2 1.1.5-2L9 8.2l2-.2 1-2Z" />
+              </svg>
+            </div>
+            <div>
+              <p class="card-label">Finalja e madhe</p>
+              <h3><span>02.08.2026</span></h3>
+            </div>
+          </article>
+        </div>
+      </section>
 
-  hero.addEventListener("pointerleave", () => {
-    bg.style.setProperty("--mx", "0px");
-  });
-}
+      <section class="rules-section" id="rregullat" aria-labelledby="rules-title">
+        <div class="section-heading reveal">
+          <p>Rregullat</p>
+          <h2 id="rules-title">Formati zyrtar</h2>
+        </div>
 
-updateCountdown();
-setupReveal();
-createSparks();
-setupTopbar();
-setupHeroParallax();
+        <div class="rules-list reveal">
+          <p>Lista e lojtar&euml;ve mbyllet n&euml; gjiron e dyt&euml;.</p>
+          <p>&Ccedil;do ekip mund t&euml; ket&euml; maksimumi <strong>12 lojtar&euml;</strong>.</p>
+          <p>Nuk lejohet t&euml; z&euml;vend&euml;sohen me tjer&euml; ose t&euml; vijn&euml; t&euml; rinj.</p>
+        </div>
+      </section>
 
-window.addEventListener("resize", createSparks, { passive: true });
-setInterval(updateCountdown, 1000);
+      <section class="cta-section" id="kontakt" aria-labelledby="contact-title">
+        <div class="cta-panel reveal">
+          <p class="official-pill small">Regjistrimet jan&euml; t&euml; hapura</p>
+          <h2 id="contact-title">B&euml;hu pjes&euml; e turnirit</h2>
+          <p>
+            P&euml;r regjistrim t&euml; ekipit dhe informata zyrtare, kontaktoni
+            organizator&euml;t.
+          </p>
+
+          <div class="contact-line">
+            <span>Kontakt</span>
+            <div class="contact-numbers">
+              <a href="tel:+38349757906">+383 49 757 906</a>
+              <a href="tel:043545626">043 545 626</a>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a
+              class="btn btn-primary"
+              href="https://www.facebook.com/share/1C9uMsAgs5/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Regjistro ekipin</span>
+            </a>
+            <a
+              class="btn btn-secondary"
+              href="https://www.facebook.com/share/1C9uMsAgs5/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Shiko njoftimin n&euml; Facebook</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer-slogan">Sporti na bashkon!</p>
+      <p>Website by Echonix IT</p>
+      <p>
+        Kontakt:
+        <a href="tel:+38349757906">+383 44 307 469</a>
+        <span aria-hidden="true"> </span>
+      </p>
+    </footer>
+
+    <a class="sticky-contact" href="tel:+38349757906" aria-label="Telefono per regjistrim">
+      Telefono: +383 49 757 906
+    </a>
+  </body>
+</html>

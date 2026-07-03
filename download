@@ -1,0 +1,40 @@
+# Turneu Tradicional "Milaim Tahiri"
+
+Faqe zyrtare njoftimi për Turneun Tradicional të Futbollit të Vogël "Milaim Tahiri" në Gërmovë, Viti.
+
+🔗 **Live site:** _(shto linkun e GitHub Pages këtu pasi ta aktivizosh)_
+
+## Struktura e projektit
+
+```
+.
+├── index.html      # Faqja kryesore
+├── style.css       # Stilizimi
+├── script.js       # Numërues mbrapsht + animacione
+├── assets/
+│   ├── stadium-bg.png
+│   └── football.png
+└── README.md
+```
+
+## Publikimi me GitHub Pages
+
+1. Shko te **Settings → Pages** në repo.
+2. Nën "Build and deployment", zgjedh **Source: Deploy from a branch**.
+3. Zgjedh branch-in `main` dhe folderin `/ (root)`.
+4. Ruaj — faqja do të jetë e qasshme brenda pak minutash në:
+   `https://<username>.github.io/<repo-name>/`
+
+## Zhvillimi lokal
+
+Meqë s'ka build tools, mjafton të hapësh `index.html` direkt në browser, ose të përdorësh një server të thjeshtë:
+
+```bash
+python3 -m http.server 8000
+```
+
+pastaj vizito `http://localhost:8000`.
+
+## Kontakt
+
+Për regjistrim ekipesh: +383 49 757 906 / 043 545 626
